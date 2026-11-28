@@ -55,3 +55,14 @@ Ghidra is dual-use software. Reverse engineer only code you own or have explicit
 ## License and credits
 
 Ghidra is released under the Apache License, Version 2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE). This product includes software developed at the National Security Agency (https://www.nsa.gov). Portions created by U.S. Government employees within the scope of federal employment are not subject to U.S. copyright protection under U.S. law; in countries where protection applies, those contributions are released under the Apache License. Other portions are copyrighted by their respective authors and contributed under compatible open-source licenses — each module includes its own `LICENSE.txt`, and the license texts are collected in `licenses/`. Full credit belongs to the NSA Research Directorate and the Ghidra contributors; this repository is only a mirror.
+
+## Quick start — 1 or 2 commands
+
+```bash
+./setup.sh          # install dependencies
+./setup.sh run      # start the project (when a run target exists)
+```
+
+`setup.sh` detects this repository's build system and installs the right toolchain
+dependencies. Use `./setup.sh test` to run the available checks. If a project has no
+standard run target, the script prints the correct command from the sections above.

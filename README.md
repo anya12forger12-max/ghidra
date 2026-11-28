@@ -1,150 +1,57 @@
-<img src="Ghidra/Features/Base/src/main/resources/images/GHIDRA_3.png" width="400">
+# Ghidra
 
-# Ghidra Software Reverse Engineering Framework
-Ghidra is a software reverse engineering (SRE) framework created and maintained by the 
-[National Security Agency][nsa] Research Directorate. This framework includes a suite of 
-full-featured, high-end software analysis tools that enable users to analyze compiled code on a 
-variety of platforms including Windows, macOS, and Linux. Capabilities include disassembly, 
-assembly, decompilation, graphing, and scripting, along with hundreds of other features. Ghidra 
-supports a wide variety of processor instruction sets and executable formats and can be run in both 
-user-interactive and automated modes. Users may also develop their own Ghidra extension components 
-and/or scripts using Java or Python.
+A software reverse engineering framework created and maintained by the NSA Research Directorate.
 
-In support of NSA's Cybersecurity mission, Ghidra was built to solve scaling and teaming problems 
-on complex SRE efforts, and to provide a customizable and extensible SRE research platform. NSA has 
-applied Ghidra SRE capabilities to a variety of problems that involve analyzing malicious code and 
-generating deep insights for SRE analysts who seek a better understanding of potential 
-vulnerabilities in networks and systems.
+> **Upstream / attribution:** This repository is a copy/mirror of [NationalSecurityAgency/ghidra](https://github.com/NationalSecurityAgency/ghidra). Ghidra is a product of the National Security Agency Research Directorate; this mirror is not the canonical upstream. Use upstream for releases, security advisories, issues, and contributions. See [LICENSE](LICENSE) and [NOTICE](NOTICE) for licensing details.
 
-If you are a U.S. citizen interested in projects like this, to develop Ghidra and other 
-cybersecurity tools for NSA to help protect our nation and its allies, consider applying for a 
-[career with us][career].
+Ghidra is a suite of full-featured software analysis tools for Windows, macOS, and Linux. It supports disassembly, assembly, decompilation, graphing, and scripting across many processor instruction sets and executable formats, in both interactive and automated modes. Users can write extensions and scripts in Java or Python, and the framework was designed for scaling and teaming on complex reverse-engineering work.
 
-## Security Warning
-**WARNING:** There are known security vulnerabilities within certain versions of Ghidra.  Before 
-proceeding, please read through Ghidra's [Security Advisories][security] for a better understanding 
-of how you might be impacted.
+## Before you start
 
-## Install
-To install an official pre-built multi-platform Ghidra release:  
-* Install [JDK 21 64-bit][jdk]
-* Download a Ghidra [release file][releases]
-  - **NOTE:** The official multi-platform release file is named 
-    `ghidra_<version>_<release>_<date>.zip` which can be found under the "Assets" drop-down.
-    Downloading either of the files named "Source Code" is not correct for this step.
-* Extract the Ghidra release file
-  - **NOTE:** Do not extract on top of an existing installation
-* Launch Ghidra: `./ghidraRun` (`ghidraRun.bat` for Windows)
-  - or launch [PyGhidra][pyghidra]: `./support/pyghidraRun` (`support\pyghidraRun.bat` for Windows)
+Check the upstream [security advisories](https://github.com/NationalSecurityAgency/ghidra/security/advisories): some released versions have known vulnerabilities. Only analyze software you own or are authorized to inspect.
 
-For additional information and troubleshooting tips about installing and running a Ghidra release, 
-please refer to the [Getting Started][gettingstarted] document which can be found at the root of a 
-Ghidra installation directory. 
+## Install an official release
 
-## Build
-[![Build Ghidra][build-ghidra-badge]][build-ghidra-action]
+1. Install a 64-bit [JDK 21](https://adoptium.net/temurin/releases).
+2. Download a release archive from upstream [Releases](https://github.com/NationalSecurityAgency/ghidra/releases) — the file named `ghidra_<version>_<release>_<date>.zip`, not the "Source Code" archives.
+3. Extract it into a new directory (do not extract over an existing installation).
+4. Launch `./ghidraRun` (or `ghidraRun.bat` on Windows), or PyGhidra with `./support/pyghidraRun` (`support\pyghidraRun.bat` on Windows).
 
-To create the latest development build for your platform from this source repository:
+See [GhidraDocs/GettingStarted.md](GhidraDocs/GettingStarted.md) for first-run and troubleshooting details.
 
-##### Install build tools:
-* [JDK 25 64-bit][jdk]
-* [Gradle 9.1.0+][gradle] (or provided Gradle wrapper if Internet connection is available)
-* [Python3][python3] (version 3.9 to 3.14) with bundled pip
-* GCC or Clang, and make (Linux/macOS-only)
-* [Microsoft Visual Studio][vs] 2017+ or [Microsoft C++ Build Tools][vcbuildtools] with the
-  following components installed (Windows-only):
-  - MSVC
-  - Windows SDK
-  - C++ ATL
+## Build from source
 
-##### Download and extract the source:
-[Download from GitHub][master]
-```
-unzip ghidra-master
-cd ghidra-master
-```
-**NOTE:** Instead of downloading the compressed source, you may instead want to clone the GitHub 
-repository: `git clone https://github.com/NationalSecurityAgency/ghidra.git`
+Requirements from the upstream build instructions: a 64-bit JDK 25, Gradle 9.1.0+ or the included `./gradlew`, Python 3.9–3.14 with pip, GCC/Clang and make on Linux/macOS, or Visual Studio 2017+ / Microsoft C++ Build Tools (MSVC, Windows SDK, C++ ATL) on Windows.
 
-##### Download additional build dependencies into source repository:
-**NOTE:** If an Internet connection is available and you did not install Gradle, the 
-`./gradlew` (or `gradlew.bat`) command may be used in place of the `gradle` command in the following
-instructions.
-
-```
+```sh
+git clone https://github.com/anya12forger12-max/ghidra.git
+cd ghidra
 gradle -I gradle/support/fetchDependencies.gradle
-```
-
-##### Create development build: 
-```
 gradle buildGhidra
 ```
-The compressed development build will be located at `build/dist/`.
 
-For more detailed information on building Ghidra, please read the [Developer's Guide][devguide].
+The compressed development build is written to `build/dist/`. Detailed notes, including known issues, are in [DevGuide.md](DevGuide.md).
 
-For issues building, please check the [Known Issues][known-issues] section for possible solutions.
+## Develop and extend
 
-## Develop
+- **User scripts and extensions:** use the GhidraDev plugin for Eclipse (`GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/README.md`) or the VS Code integration created from CodeBrowser via *Tools → Create VSCode Module project*. Python support is documented in [Ghidra/Features/PyGhidra/README.md](Ghidra/Features/PyGhidra/README.md).
+- **Framework development:** after a successful build, run `gradle prepdev eclipse buildNatives`, then import the source tree into Eclipse (*File → Import → General → Existing Projects into Workspace*, with *Search for nested projects* enabled) and use the supplied Ghidra run configuration.
+- **Contributing:** follow the upstream [CONTRIBUTING.md](CONTRIBUTING.md). Changes should be proposed on the canonical upstream repository.
 
-### User Scripts and Extensions
-Ghidra installations support users writing custom scripts and extensions via the *GhidraDev* plugin 
-for Eclipse.  The plugin and its corresponding instructions can be found within a Ghidra release at
-`Extensions/Eclipse/GhidraDev/` or at [this link][ghidradev].  Alternatively, Visual Studio Code may
-be used to edit scripts by clicking the Visual Studio Code icon in the Script Manager.
-Fully-featured Visual Studio Code projects can be created from a Ghidra CodeBrowser window at 
-_Tools -> Create VSCode Module project_.
+## Repository layout
 
-**NOTE:** Both the *GhidraDev* plugin for Eclipse and Visual Studio Code integrations only support 
-developing against fully built Ghidra installations which can be downloaded from the
-[Releases][releases] page.
+| Path | Contents |
+| :--- | :--- |
+| `Ghidra/` | Framework and feature modules |
+| `GhidraBuild/`, `GhidraDocs/` | Build tooling, Eclipse plugins, and documentation |
+| `GPL/` | GPL-licensed components distributed with Ghidra |
+| `gradle/`, `build.gradle`, `settings.gradle` | Gradle build configuration |
+| `licenses/` | License texts for third-party components |
 
-### Advanced Development
-To develop the Ghidra tool itself, it is highly recommended to use Eclipse, which the Ghidra 
-development process has been highly customized for.
+## Responsible use
 
-##### Install build and development tools:
-* Follow the above [build instructions](#build) so the build completes without errors
-* Install [Eclipse IDE for Java Developers][eclipse]
+Ghidra is dual-use software. Reverse engineer only code you own or have explicit authorization to analyze, respect software licenses and applicable law, and avoid handling untrusted samples without appropriate isolation. Stay current with upstream advisories.
 
-##### Prepare the development environment:
-``` 
-gradle prepdev eclipse buildNatives
-```
+## License and credits
 
-##### Import Ghidra projects into Eclipse:
-* *File* -> *Import...*
-* *General* | *Existing Projects into Workspace*
-* Select root directory to be your downloaded or cloned ghidra source repository
-* Check *Search for nested projects*
-* Click *Finish*
-
-When Eclipse finishes building the projects, Ghidra can be launched and debugged with the provided
-**Ghidra** Eclipse *run configuration*.
-
-For more detailed information on developing Ghidra, please read the [Developer's Guide][devguide].
-
-## Contribute
-If you would like to contribute bug fixes, improvements, and new features back to Ghidra, please 
-take a look at our [Contributor's Guide][contrib] to see how you can participate in this open 
-source project.
-
-[build-ghidra-action]: https://github.com/NationalSecurityAgency/ghidra/actions/workflows/build-ghidra.yml
-[build-ghidra-badge]: https://github.com/NationalSecurityAgency/ghidra/actions/workflows/build-ghidra.yml/badge.svg
-[nsa]: https://www.nsa.gov
-[contrib]: CONTRIBUTING.md
-[devguide]: DevGuide.md
-[gettingstarted]: GhidraDocs/GettingStarted.md
-[known-issues]: DevGuide.md#known-issues
-[career]: https://www.intelligencecareers.gov/nsa
-[releases]: https://github.com/NationalSecurityAgency/ghidra/releases
-[jdk]: https://adoptium.net/temurin/releases
-[gradle]: https://gradle.org/releases/
-[python3]: https://www.python.org/downloads/
-[vs]: https://visualstudio.microsoft.com/vs/community/
-[vcbuildtools]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
-[eclipse]: https://www.eclipse.org/downloads/packages/
-[master]: https://github.com/NationalSecurityAgency/ghidra/archive/refs/heads/master.zip
-[security]: https://github.com/NationalSecurityAgency/ghidra/security/advisories
-[ghidradev]: GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/README.md
-[pyghidra]: Ghidra/Features/PyGhidra/README.md
+Ghidra is released under the Apache License, Version 2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE). This product includes software developed at the National Security Agency (https://www.nsa.gov). Portions created by U.S. Government employees within the scope of federal employment are not subject to U.S. copyright protection under U.S. law; in countries where protection applies, those contributions are released under the Apache License. Other portions are copyrighted by their respective authors and contributed under compatible open-source licenses — each module includes its own `LICENSE.txt`, and the license texts are collected in `licenses/`. Full credit belongs to the NSA Research Directorate and the Ghidra contributors; this repository is only a mirror.
